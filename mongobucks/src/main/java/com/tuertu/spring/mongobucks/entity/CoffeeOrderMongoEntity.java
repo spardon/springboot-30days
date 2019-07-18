@@ -18,7 +18,7 @@ public class CoffeeOrderMongoEntity implements Serializable {
     @Id
     private String id;
     private String customer;
-    private List<CoffeeOrderMongoEntity> items;
+    private List<CoffeeMongoEntity> items;
     private Date createDate;
     private Date updateDate;
     private OrderState state;
