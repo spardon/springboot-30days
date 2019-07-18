@@ -13,6 +13,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +52,13 @@ public class CoffeeService {
 
     public void delete(CoffeeMongoEntity coffee){
         coffeeRepository.delete(coffee);
+    }
+
+    public List<CoffeeMongoEntity> findAllCoffeeById(List<String> ids){
+        Iterable<CoffeeMongoEntity> coffees = coffeeRepository.findAllById(ids);
+        List<CoffeeMongoEntity> coffeeList = new ArrayList<>();
+        coffees.forEach(coffeeList::add);
+        return coffeeList;
     }
 
     public List<CoffeeMongoEntity> findAllCoffee(){

@@ -4,6 +4,7 @@ import com.tuertu.spring.mongobucks.entity.CoffeeMongoEntity;
 import com.tuertu.spring.mongobucks.entity.CoffeeOrderMongoEntity;
 import com.tuertu.spring.mongobucks.entity.OrderState;
 import com.tuertu.spring.mongobucks.repository.mongo.CoffeeOrderRepository;
+import jdk.internal.dynalink.linker.LinkerServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -25,13 +27,17 @@ public class CoffeeOrderService {
         return order;
     }
 
-    public CoffeeOrderMongoEntity createOrder(String name, CoffeeMongoEntity...coffees){
+    public CoffeeOrderMongoEntity createOrder(String name, List<CoffeeMongoEntity> coffees){
         CoffeeOrderMongoEntity coffeeOrder = CoffeeOrderMongoEntity.builder().customer(name)
-                .items(new ArrayList<>(Arrays.asList(coffees)))
+                .items(coffees)
                 .state(OrderState.INIT)
                 .build();
         coffeeOrder = this.saveOrder(coffeeOrder);
         return coffeeOrder;
+    }
+
+    public List<CoffeeOrderMongoEntity> getOrderList(){
+        return coffeeOrderRepository.findAll();
     }
 
     public Optional<CoffeeOrderMongoEntity> findOrderByCustomerName(String name){
