@@ -62,4 +62,14 @@ public class CoffeeOrderService {
         log.info("Updated Order: {}", order);
         return true;
     }
+
+    public Boolean updateStateByOrderId(String id, OrderState state){
+        Optional<CoffeeOrderMongoEntity> order = coffeeOrderRepository.findById(id);
+
+        if (order.isPresent()){
+            return this.updateState(order.get(), state);
+        }
+
+        return false;
+    }
 }

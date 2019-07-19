@@ -1,10 +1,12 @@
-package com.tuertu.spring.mongobucks.controller.dto;
+package com.tuertu.spring.mongobucks.controller;
 
+import com.tuertu.spring.mongobucks.controller.dto.CoffeOrderUpdateInfo;
 import com.tuertu.spring.mongobucks.entity.CoffeeMongoEntity;
 import com.tuertu.spring.mongobucks.entity.CoffeeOrderMongoEntity;
 import com.tuertu.spring.mongobucks.service.CoffeeOrderService;
 import com.tuertu.spring.mongobucks.service.CoffeeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,5 +51,11 @@ public class CoffeeOrderController {
 
         CoffeeOrderMongoEntity order = coffeeOrderServiceImpl.createOrder(customer.get(), coffees);
         return order;
+    }
+
+    @RequestMapping(value = "/api/order/state", method = RequestMethod.POST)
+    public Boolean updateOrderState(@RequestBody CoffeOrderUpdateInfo stateParam){
+
+         return coffeeOrderServiceImpl.updateStateByOrderId(stateParam.getId(), stateParam.getState());
     }
 }
