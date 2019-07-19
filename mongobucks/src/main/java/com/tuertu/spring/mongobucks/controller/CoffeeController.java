@@ -1,4 +1,4 @@
-package com.tuertu.spring.mongobucks.controller.dto;
+package com.tuertu.spring.mongobucks.controller;
 
 import com.tuertu.spring.mongobucks.entity.CoffeeMongoEntity;
 import com.tuertu.spring.mongobucks.service.CoffeeService;
